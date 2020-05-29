@@ -4,7 +4,7 @@ from os import listdir, mkdir
 from random import shuffle
 from threading import Thread
 start = time()
-#url = "https://www.facebook.com/recover/password/?u=100043722211323&n=754161&fl=default_recover&sih=0
+
 
 try: listdir('log')
 except: mkdir('log')
