@@ -72,10 +72,20 @@ for c in cs:
     else:
         with open('d.txt', 'a+') as fob: fob.write('%s:%i\n'%(c,len(uids))); fob.close()
         ds.append(c)
-        ts = [Thread(target=passChecker, args=(uid, c)) for uid in uids]
+        ts = []
+        num = 0
         print("Threading Started... (%s:%i)"%(c,len(uids)))
-        [t.start() for t in ts]
-        [t.join() for t in ts]
+        for uid in uids:
+            t = Thread(target=passChecker, args=(uid, c))
+            if num>=99:
+                ts.append(t)
+                [t.start() for t in ts]
+                [t.join() for t in ts]
+                ts = []
+                num = 0
+            else:
+                ts.append(t)
+                num = num + 1
         end = time()
         print("Threading Completed. Time took: %.5fs."%(end-start))
         start = end
